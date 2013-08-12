@@ -4,7 +4,7 @@
     Search Results
 </h1>
 <div>
-    <form method="POST">
+    <form method="GET">
         <input type="text" name="q"/>
         <input type="submit" value="Go"/>
     </form>

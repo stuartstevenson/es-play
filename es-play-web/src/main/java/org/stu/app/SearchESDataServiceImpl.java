@@ -1,6 +1,14 @@
 package org.stu.app;
 
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,6 +21,17 @@ import org.springframework.stereotype.Component;
 public class SearchESDataServiceImpl implements SearchESDataService {
     @Override
     public SearchESDataResult getResultForSearchTerm(String term) {
-        return new SearchESDataResult(null);
+
+        Client client = new TransportClient()
+                .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
+
+        SearchResponse response = client.prepareSearch("twitter")
+                .setTypes("tweet")
+                .setSearchType(SearchType.DFS_QUERY_AND_FETCH)
+                .setQuery(QueryBuilders.matchQuery("message",term))
+                .execute()
+                .actionGet();
+
+        return new SearchESDataResult(Arrays.asList(response.toString()));
     }
 }
