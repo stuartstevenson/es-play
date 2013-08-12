@@ -30,6 +30,13 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>0.90.2</version>
+        </dependency>
+
+
         <!--
             Make use of JSP tags. Remove, if you don't use JSPs
         -->
