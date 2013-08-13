@@ -9,18 +9,11 @@
 		</repository>
 	</repositories>
 
-	<parent>
-		<groupId>org.stu</groupId>
-		<artifactId>es-play</artifactId>
-		<version>HEAD-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
 
 	<!-- The Basics -->
 	<groupId>org.stu</groupId>
 	<artifactId>es-play-app</artifactId>
-	<version>HEAD-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
 
 	<name>es-play-app</name>
 
