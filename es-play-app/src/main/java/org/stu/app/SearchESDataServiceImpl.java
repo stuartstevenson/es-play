@@ -1,14 +1,16 @@
 package org.stu.app;
 
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import com.google.common.collect.Lists;
+import org.apache.commons.collections.IteratorUtils;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
+import org.stu.domain.Post;
+import org.stu.repositories.PostRepository;
 
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,19 +21,15 @@ import java.util.Arrays;
  */
 @Component
 public class SearchESDataServiceImpl implements SearchESDataService {
+
+    @Autowired
+    private PostRepository postRepository;
+
     @Override
     public SearchESDataResult getResultForSearchTerm(String term) {
 
-        Client client = new TransportClient()
-                .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
+        Iterable<Post> results = postRepository.search(QueryBuilders.termQuery("content", term), new PageRequest(0,10));
 
-        SearchResponse response = client.prepareSearch("twitter")
-                .setTypes("tweet")
-                .setSearchType(SearchType.DFS_QUERY_AND_FETCH)
-                .setQuery(QueryBuilders.matchQuery("message",term))
-                .execute()
-                .actionGet();
-
-        return new SearchESDataResult(Arrays.asList(response.toString()));
+        return new SearchESDataResult(Lists.newArrayList(results));
     }
 }

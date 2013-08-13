@@ -1,6 +1,8 @@
 package org.stu.app;
 
-import java.util.List;
+import org.stu.domain.Post;
+
+import java.util.Collection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,13 +12,13 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class SearchESDataResult {
-    private final List<String> items;
+    private final Collection<Post> items;
 
-    public SearchESDataResult(List<String> items) {
+    public SearchESDataResult(Collection<Post> items) {
         this.items = items;
     }
 
-    public List<String> getItems() {
+    public Collection<Post> getItems() {
         return items;
     }
 }
