@@ -7,6 +7,7 @@
     <groupId>es-play</groupId>
     <artifactId>es-play</artifactId>
     <version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
 	<modules>
 		<module>es-play-app</module>
