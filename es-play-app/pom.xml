@@ -9,6 +9,13 @@
 		</repository>
 	</repositories>
 
+	<parent>
+		<groupId>es-play</groupId>
+		<artifactId>es-play</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
 
 	<!-- The Basics -->
 	<groupId>org.stu</groupId>
