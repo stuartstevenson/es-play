@@ -28,7 +28,7 @@ public class SearchESDataServiceImpl implements SearchESDataService {
     @Override
     public SearchESDataResult getResultForSearchTerm(String term) {
 
-        Iterable<Post> results = postRepository.search(QueryBuilders.termQuery("content", term), new PageRequest(0,10));
+        Iterable<Post> results = postRepository.search(QueryBuilders.fuzzyQuery("content", term), new PageRequest(0,10));
 
         return new SearchESDataResult(Lists.newArrayList(results));
     }

@@ -12,9 +12,14 @@
 <div>
     <c:if test="${not empty result.items}">
         <ul>
-            <c:forEach items="${result.items}" var="item">
+            <c:forEach items="${result.items}" var="post">
                  <li>
-                     ${item}
+                     <h2>
+                        ${post.title} - ${post.postDate}
+                     </h2>
+                     <p>
+                         ${post.content}
+                     </p>
                  </li>
             </c:forEach>
         </ul>
