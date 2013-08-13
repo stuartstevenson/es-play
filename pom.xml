@@ -12,12 +12,14 @@
 	<modules>
 		<module>es-play-app</module>
 		<module>es-play-web</module>
-	</modules>
+        <module>es-play-domain</module>
+    </modules>
 
     <properties>
         <spring.version>3.0.5.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <es-play-app.version>1.0-SNAPSHOT</es-play-app.version>
+        <es-play-domain.version>1.0-SNAPSHOT</es-play-domain.version>
         <taglibs.version>1.1.2</taglibs.version>
         <sitemesh.version>3.0-alpha-2</sitemesh.version>
         <slf4j.version>1.6.1</slf4j.version>
@@ -42,6 +44,12 @@
                 <groupId>org.stu</groupId>
                 <artifactId>es-play-app</artifactId>
                 <version>${es-play-app.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.stu</groupId>
+                <artifactId>es-play-domain</artifactId>
+                <version>${es-play-domain.version}</version>
             </dependency>
 
             <dependency>
