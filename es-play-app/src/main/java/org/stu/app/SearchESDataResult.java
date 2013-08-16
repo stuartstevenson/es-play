@@ -1,6 +1,7 @@
 package org.stu.app;
 
 import org.stu.domain.Post;
+import org.stu.domain.Property;
 
 import java.util.Collection;
 
@@ -12,13 +13,13 @@ import java.util.Collection;
  * To change this template use File | Settings | File Templates.
  */
 public class SearchESDataResult {
-    private final Collection<Post> items;
+    private final Collection<Property> items;
 
-    public SearchESDataResult(Collection<Post> items) {
+    public SearchESDataResult(Collection<Property> items) {
         this.items = items;
     }
 
-    public Collection<Post> getItems() {
+    public Collection<Property> getItems() {
         return items;
     }
 }

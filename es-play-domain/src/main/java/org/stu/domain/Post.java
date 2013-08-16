@@ -19,8 +19,9 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String content, Date postDate) {
-        this.title = title;
+    public Post(Long id, String title, String content, Date postDate) {
+		this.id = id;
+		this.title = title;
         this.content = content;
         this.postDate = postDate;
     }
