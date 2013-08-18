@@ -1,5 +1,6 @@
 package org.stu.domain;
 
+import com.spatial4j.core.shape.impl.PointImpl;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -21,16 +22,18 @@ public class Property {
 	private String address;
 	private String description;
 	private Long price;
+    private PointImpl location;
 
 	public Property() {
 	}
 
-	public Property(Long id,String address, String description, Long price) {
+	public Property(Long id, String address, String description, Long price, PointImpl location) {
 		this.id = id;
 		this.address = address;
 		this.description = description;
 		this.price = price;
-	}
+        this.location = location;
+    }
 
 	public Long getId() {
 		return id;
@@ -71,4 +74,12 @@ public class Property {
 	public void setPrice(Long price) {
 		this.price = price;
 	}
+
+    public PointImpl getLocation() {
+        return location;
+    }
+
+    public void setLocation(PointImpl location) {
+        this.location = location;
+    }
 }
