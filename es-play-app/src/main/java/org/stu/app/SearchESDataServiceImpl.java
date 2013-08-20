@@ -1,9 +1,18 @@
 package org.stu.app;
 
 import com.google.common.collect.Lists;
+import com.spatial4j.core.context.SpatialContext;
+import com.spatial4j.core.shape.impl.RectangleImpl;
 import org.apache.commons.collections.IteratorUtils;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.common.geo.ShapeRelation;
+import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -29,14 +38,23 @@ public class SearchESDataServiceImpl implements SearchESDataService {
     private PropertyRepository propertyRepository;
 	@Autowired
 	private PostRepository postRepository;
+    @Autowired
+    private Client client;
 
     @Override
     public SearchESDataResult getResultForSearchTerm(String term) {
 
-        Iterable<Property> results = propertyRepository.search(QueryBuilders.fuzzyLikeThisQuery("address", "description")
-				.likeText(term)
-				.maxQueryTerms(12));
+        SearchResponse response = client.prepareSearch("spatial-test")
+                .setTypes("spat")
+                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                .setQuery(QueryBuilders.termQuery("name", "property"))             // Query
+                .setFilter(FilterBuilders.geoShapeFilter("location",
+                        new RectangleImpl(0, 10, 0, 10, SpatialContext.GEO), ShapeRelation.WITHIN))   // Filter
+                .execute()
+                .actionGet();
 
-        return new SearchESDataResult(Lists.newArrayList(results));
+        SearchHits hits = response.getHits();
+
+        return new SearchESDataResult(null);
     }
 }

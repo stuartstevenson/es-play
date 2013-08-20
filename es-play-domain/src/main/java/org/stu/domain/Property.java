@@ -22,17 +22,15 @@ public class Property {
 	private String address;
 	private String description;
 	private Long price;
-    private PointImpl location;
 
 	public Property() {
 	}
 
-	public Property(Long id, String address, String description, Long price, PointImpl location) {
+	public Property(Long id, String address, String description, Long price) {
 		this.id = id;
 		this.address = address;
 		this.description = description;
 		this.price = price;
-        this.location = location;
     }
 
 	public Long getId() {
@@ -74,12 +72,4 @@ public class Property {
 	public void setPrice(Long price) {
 		this.price = price;
 	}
-
-    public PointImpl getLocation() {
-        return location;
-    }
-
-    public void setLocation(PointImpl location) {
-        this.location = location;
-    }
 }
