@@ -1,28 +1,13 @@
 package org.stu.app;
 
-import com.google.common.collect.Lists;
-import com.spatial4j.core.context.SpatialContext;
-import com.spatial4j.core.shape.impl.RectangleImpl;
-import org.apache.commons.collections.IteratorUtils;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.common.geo.ShapeRelation;
-import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import org.stu.domain.Post;
-import org.stu.domain.Property;
-import org.stu.repositories.PostRepository;
-import org.stu.repositories.PropertyRepository;
 
-import java.util.HashSet;
-import java.util.Set;
+import static org.elasticsearch.index.query.FilterBuilders.geoBoundingBoxFilter;
+import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
+import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 
 /**
  * Created with IntelliJ IDEA.
@@ -35,25 +20,15 @@ import java.util.Set;
 public class SearchESDataServiceImpl implements SearchESDataService {
 
     @Autowired
-    private PropertyRepository propertyRepository;
-	@Autowired
-	private PostRepository postRepository;
-    @Autowired
     private Client client;
 
     @Override
     public SearchESDataResult getResultForSearchTerm(String term) {
 
-        SearchResponse response = client.prepareSearch("spatial-test")
-                .setTypes("spat")
-                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-                .setQuery(QueryBuilders.termQuery("name", "property"))             // Query
-                .setFilter(FilterBuilders.geoShapeFilter("location",
-                        new RectangleImpl(0, 10, 0, 10, SpatialContext.GEO), ShapeRelation.WITHIN))   // Filter
-                .execute()
-                .actionGet();
-
-        SearchHits hits = response.getHits();
+        SearchResponse searchResponse = client.prepareSearch("property-index")
+                .setTypes("property")
+                .setQuery(filteredQuery(matchAllQuery(), geoBoundingBoxFilter("point").topLeft(40.73, -74.1).bottomRight(40.71, -73.99)))
+                .execute().actionGet();
 
         return new SearchESDataResult(null);
     }

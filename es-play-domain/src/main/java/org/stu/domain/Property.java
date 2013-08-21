@@ -1,6 +1,7 @@
 package org.stu.domain;
 
 import com.spatial4j.core.shape.impl.PointImpl;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -22,15 +23,16 @@ public class Property {
 	private String address;
 	private String description;
 	private Long price;
+    private GeoPoint point;
 
 	public Property() {
 	}
 
-	public Property(Long id, String address, String description, Long price) {
-		this.id = id;
+	public Property(String address, String description, Long price, GeoPoint point) {
 		this.address = address;
 		this.description = description;
 		this.price = price;
+        this.point = point;
     }
 
 	public Long getId() {
@@ -72,4 +74,12 @@ public class Property {
 	public void setPrice(Long price) {
 		this.price = price;
 	}
+
+    public GeoPoint getPoint() {
+        return point;
+    }
+
+    public void setPoint(GeoPoint point) {
+        this.point = point;
+    }
 }
