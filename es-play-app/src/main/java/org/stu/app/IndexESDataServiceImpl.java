@@ -44,6 +44,7 @@ public class IndexESDataServiceImpl implements IndexESDataService {
         client.prepareIndex("property-index", "property", "69").setSource(jsonBuilder().startObject()
                 .field("address", "New York")
                 .field("description", "5 bedrooms")
+                .field("prop_type","bungalow")
                 .startObject("point").field("lat", 40.7143528).field("lon", -74.0).endObject()
                 .endObject()).execute().actionGet();
 

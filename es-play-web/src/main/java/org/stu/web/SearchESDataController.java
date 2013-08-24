@@ -22,8 +22,8 @@ public class SearchESDataController {
     private SearchESDataService searchESDataService;
 
     @RequestMapping(value = "/search-data", method = RequestMethod.GET)
-    public String searchData(final ModelMap modelMap, @RequestParam String q) {
-        modelMap.addAttribute("result", searchESDataService.getResultForSearchTerm(q));
+    public String searchData(final ModelMap modelMap, @RequestParam String q, @RequestParam String t) {
+        modelMap.addAttribute("result", searchESDataService.getResultForSearchTerm(q, t));
         return "searchResults";
     }
 

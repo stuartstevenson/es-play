@@ -8,5 +8,5 @@ package org.stu.app;
  * To change this template use File | Settings | File Templates.
  */
 public interface SearchESDataService {
-    SearchESDataResult getResultForSearchTerm(String term);
+    SearchESDataResult getResultForSearchTerm(String term, String type);
 }

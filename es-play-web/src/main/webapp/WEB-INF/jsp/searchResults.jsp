@@ -5,7 +5,8 @@
 </h1>
 <div>
     <form method="GET">
-        <input type="text" name="q"/>
+        search <input type="text" name="q"/>
+        exclude type <input type="text" name="t"/>
         <input type="submit" value="Go"/>
     </form>
 </div>
